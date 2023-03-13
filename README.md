@@ -62,17 +62,30 @@ cellranger testrun --id=check_install
 ```
 cellranger mkfastq --id=mytest --run=cellranger-tiny-bcl-1.2.0/ --csv=cellranger-tiny-bcl-simple-1.2.0.csv
 ```
-包含三个参数 --id, --run, and --csv.
-    * --id可以是任何东西。管道使用它来命名Cell Ranger将要创建并在其中运行的输出目录
-    * --run参数指向包含BCL文件的Illumina运行文件夹
-    * --csv参数是一个以逗号分隔的值(csv)文件，它描述了如何在Illumina流单元上对样本进行索引。  
+
+包含三个参数 --id, --run, and --csv.  
+   * --id（输出目录）可以是任何东西。管道使用它来命名Cell Ranger将要创建并在其中运行的输出目录
+   * --run参数指向包含BCL文件的Illumina运行文件夹
+   * --csv参数是一个以逗号分隔的值(csv)文件，它描述了如何在Illumina流单元上对样本进行索引。  
 
 
-### 
+### Running cellranger count
+* cellranger count 将FASTQ文件与参考转录组对齐，并生成.cloupe文件，可用于在Loupe浏览器中可视化和分析，还可以与其他公开工具做进一步分析。
+
 * 准备  
   * FASTQ files
   * reference transcriptome  
 关于参考基因组：单细胞测序的参考基因组可以从其他来源下载。但是，10x Genomics为人类和小鼠基因组提供了预构建的参考文献，可与Cell Ranger一起使用。研究人员可以为其他物种制作自定义参考基因组，或将感兴趣的自定义标记基因添加到参考基因组中，例如GFP。自行[创建索引](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/tutorial_mr)
 
 
-* 
+* 执行cellranger count
+
+```
+cellranger count --id=testout --fastqs=/home/luotao/c_elegans/yard/run_cellranger_count/pbmc_1k_v3_fastqs/ --sample=pbmc_1k_v3 --transcriptome=/home/luotao/c_elegans/yard/run_cellranger_count/refdata-gex-GRCh38-2020-A/
+```
+ --id 输出目录  
+ --fastqs 是包含FASTQ文件的目录的路径。如果使用cellranger mkfastq对数据进行多路分解，则可以在管道的out中使用路径到fastq_path目录  
+ --sample 如果FASTQ目录中有多个样例，则使用——sample参数指定使用哪个样例  
+ --transcriptome 是转录组的参考目录
+
+

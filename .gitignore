@@ -4,4 +4,4 @@
 /run_cellranger_count
 /apps
 sitecheck.txt
-cellrange7.10
+/.snakemake
